@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <title>ARIA Issues (WCAG 4.1.2)</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <main>
+    <h1>ARIA Issues</h1>
+    <p><strong>WCAG 2.1 Success Criterion 4.1.2 Name, Role, Value (Level A)</strong>: For all user interface components, the name and role can be programmatically determined; states, properties, and values can be programmatically set; and notification of changes to these items is available to user agents, including assistive technologies.</p>
+    <p>This page contains improper ARIA attributes and roles that should be detected by accessibility tools.</p>
+    
+    <section class="section">
+      <h2>Invalid ARIA Role</h2>
+      <div class="issue">
+        <div role="invalid-role">This has an invalid ARIA role</div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2>Invalid ARIA Attribute</h2>
+      <div class="issue">
+        <button aria-nonexistent="true">This button has an invalid ARIA attribute</button>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2>Wrong Role Usage</h2>
+      <div class="issue">
+        <div role="checkbox">This is not a proper checkbox implementation</div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2>Aria-labelledby References Missing ID</h2>
+      <div class="issue">
+        <div aria-labelledby="nonexistent-id">This references a non-existent ID</div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2>Conflicting ARIA States</h2>
+      <div class="issue">
+        <div role="checkbox" aria-checked="true" aria-selected="true">
+          Checkboxes should not have aria-selected
+        </div>
+      </div>
+    </section>
+    
+    <p class="back-link"><a href="index.html">Back to homepage</a></p>
+  </main>
+</body>
+</html> 

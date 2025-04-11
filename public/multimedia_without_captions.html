@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <title>Multimedia Without Captions (WCAG 1.2.1, 1.2.2)</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <main>
+    <h1>Multimedia Without Captions</h1>
+    <p><strong>WCAG 2.1 Success Criterion 1.2.1 Audio-only and Video-only (Prerecorded) (Level A)</strong>: For prerecorded audio-only and prerecorded video-only media, an alternative is provided that presents equivalent information.</p>
+    <p><strong>WCAG 2.1 Success Criterion 1.2.2 Captions (Prerecorded) (Level A)</strong>: Captions are provided for all prerecorded audio content in synchronized media.</p>
+    <p>This page contains video and audio content without proper captions, transcripts, or audio descriptions.</p>
+
+    <section class="section">
+      <h2>Video Without Captions</h2>
+      <div class="issue">
+        <video controls width="400">
+          <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+          <!-- Missing track element for captions -->
+          Your browser does not support the video tag.
+        </video>
+        <p>The video above lacks captions or transcripts, which prevents deaf or hard-of-hearing users from accessing the content.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Audio Without Transcript</h2>
+      <div class="issue">
+        <audio controls>
+          <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3" type="audio/mpeg">
+          Your browser does not support the audio tag.
+        </audio>
+        <p>The audio above has no accompanying transcript, making it inaccessible to deaf or hard-of-hearing users.</p>
+      </div>
+    </section>
+
+    <p class="back-link"><a href="index.html">Back to homepage</a></p>
+  </main>
+</body>
+</html> 

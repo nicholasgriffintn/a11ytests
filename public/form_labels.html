@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <title>Form Label Issues (WCAG 1.3.1, 3.3.2)</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .issue {
+      border-left: 3px solid red;
+      padding-left: 10px;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Form Label Issues</h1>
+    <p><strong>WCAG 2.1 Success Criterion 1.3.1 Info and Relationships (Level A)</strong>: Information, structure, and relationships conveyed through presentation can be programmatically determined or are available in text.</p>
+    <p><strong>WCAG 2.1 Success Criterion 3.3.2 Labels or Instructions (Level A)</strong>: Labels or instructions are provided when content requires user input.</p>
+    <p>This page contains form fields with missing or improper labels.</p>
+    
+    <div class="form-section">
+      <h2>Missing Labels</h2>
+      <form>
+        <div class="issue">
+          <!-- Missing label -->
+          <input type="text" placeholder="Your name (missing label)">
+        </div>
+        
+        <div class="issue">
+          <!-- Missing label -->
+          <select>
+            <option>Option 1</option>
+            <option>Option 2</option>
+          </select>
+        </div>
+        
+        <div class="issue">
+          <!-- Text next to input but not using label -->
+          Name: <input type="text">
+        </div>
+      </form>
+    </div>
+    
+    <div class="form-section">
+      <h2>Empty/Hidden Labels</h2>
+      <form>
+        <div class="issue">
+          <label for="email"></label>
+          <input type="email" id="email" placeholder="Email with empty label">
+        </div>
+        
+        <div class="issue">
+          <label for="phone" style="display: none;">Phone</label>
+          <input type="tel" id="phone" placeholder="Phone with hidden label">
+        </div>
+      </form>
+    </div>
+    
+    <div class="form-section">
+      <h2>Incorrect Associations</h2>
+      <form>
+        <div class="issue">
+          <label for="wrong-id">Username</label>
+          <input type="text" id="not-matching-id" placeholder="Label points to wrong ID">
+        </div>
+      </form>
+    </div>
+    
+    <p class="back-link"><a href="index.html">Back to homepage</a></p>
+  </main>
+</body>
+</html> 

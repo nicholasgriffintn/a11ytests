@@ -1,19 +1,47 @@
 <!DOCTYPE html>
 <html lang="en-gb">
   <head>
-    <title>Login</title>
+    <title>Login (WCAG 2.1.1, 3.3.2)</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+      .login-form {
+        margin: 20px 0;
+      }
+      .form-field {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      button {
+        margin-top: 10px;
+        padding: 5px 15px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Login</h1>
-    <p id="main">
-      <label>
-        Username: <input id="username" type="text" />
-      </label>
-      <label>
-        Password: <input id="password" type="password" />
-      </label>
-      <button id="loginButton">Log In</button>
-    </p>
+    <main>
+      <h1>Login</h1>
+      <p>This page redirects to a perfect accessibility page after login with correct credentials.</p>
+      
+      <section class="section">
+        <div class="login-form">
+          <div class="form-field">
+            <label for="username">Username:</label>
+            <input id="username" type="text" />
+          </div>
+          <div class="form-field">
+            <label for="password">Password:</label>
+            <input id="password" type="password" />
+          </div>
+          <button id="loginButton">Log In</button>
+        </div>
+        <p><small>Hint: Username is "admin" and password is "donut"</small></p>
+      </section>
+      
+      <p class="back-link"><a href="index.html">Back to homepage</a></p>
+    </main>
     <script>
       document.getElementById('loginButton').onclick = function () {
         if (document.getElementById('username').value === 'admin' &&

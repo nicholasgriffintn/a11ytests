@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Document Language Issues (WCAG 3.1.1, 3.1.2)</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <main>
+    <h1>Document Language Issues</h1>
+    <p><strong>WCAG 2.1 Success Criterion 3.1.1 Language of Page (Level A)</strong>: The default human language of each page can be programmatically determined.</p>
+    <p><strong>WCAG 2.1 Success Criterion 3.1.2 Language of Parts (Level AA)</strong>: The human language of each passage or phrase in the content can be programmatically determined.</p>
+    <p>This page demonstrates issues with document language specification.</p>
+    
+    <section class="section">
+      <h2>Missing HTML Lang Attribute</h2>
+      <div class="issue">
+        <p>This page has a missing lang attribute in the HTML tag. Screen readers will default to the user's system language, potentially causing incorrect pronunciation.</p>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2>Mixed Language Content Without Lang Attributes</h2>
+      <div class="language-example">
+        <p>This paragraph contains French: Bonjour, comment allez-vous? But it doesn't use the lang attribute to specify it.</p>
+      </div>
+      
+      <div class="language-example">
+        <p>This paragraph contains Spanish: Hola, ¿cómo estás? But it doesn't use the lang attribute to specify it.</p>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2>Incorrect Language Code</h2>
+      <div class="language-example">
+        <p lang="xx">This paragraph uses an invalid language code "xx" which doesn't conform to BCP 47 standards.</p>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2>Multiple Languages on One Page</h2>
+      <p>When a page contains content in multiple languages, each section in a different language should use the lang attribute:</p>
+      
+      <div class="language-example">
+        <!-- German text without lang attribute -->
+        <p>Ich spreche ein bisschen Deutsch.</p>
+      </div>
+      
+      <div class="language-example">
+        <!-- Italian text without lang attribute -->
+        <p>Parlo un po' di italiano.</p>
+      </div>
+    </section>
+    
+    <p class="back-link"><a href="index.html">Back to homepage</a></p>
+  </main>
+</body>
+</html> 

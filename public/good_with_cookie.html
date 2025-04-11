@@ -2,22 +2,68 @@
 <html lang="en-gb">
   <head>
     <title>Perfect page when the cookie named 'open' has the value 'sesame'</title>
+    <link rel="stylesheet" href="index.css">
   </head>
 
   <body>
-    <h1>There is a main heading</h1>
-    <p id="p">
-      But role="main" only appears when a cookie is set with open=sesame
-    </p>
+    <main id="main-content">
+      <h1>Good With Cookie</h1>
+      
+      <section class="section">
+        <div class="issue">
+          <p id="p">
+            This page only passes accessibility tests when a cookie named 'open' has the value 'sesame'.
+            When the cookie is set, this paragraph gets role="main" applied to it.
+          </p>
+          
+          <div>
+            <button onclick="setCookie()">Set cookie (open=sesame)</button>
+            <button onclick="clearCookie()">Clear cookie</button>
+          </div>
+          
+          <div id="cookie-status" style="margin-top: 10px;">
+            Current cookie: <code id="current-cookie">none</code>
+          </div>
+        </div>
+      </section>
+      
+      <p class="back-link"><a href="index.html">Back to homepage</a></p>
+    </main>
+    
     <script>
     function getCookieValue(a) {
       var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
       return b ? b.pop() : '';
     }
-    if (getCookieValue('open') === 'sesame') {
-      document.getElementById('p').setAttribute('role', 'main')
+    
+    function setCookie() {
+      document.cookie = "open=sesame; path=/";
+      updateDisplay();
     }
-    document.body.innerHTML += "<pre>document.cookie=" + document.cookie + "</pre>"
+    
+    function clearCookie() {
+      document.cookie = "open=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      updateDisplay();
+    }
+    
+    function updateDisplay() {
+      var issueContainer = document.querySelector('.issue');
+      
+      if (getCookieValue('open') === 'sesame') {
+        document.getElementById('p').setAttribute('role', 'main');
+        document.getElementById('current-cookie').textContent = "open=sesame";
+        issueContainer.classList.remove('issue');
+      } else {
+        document.getElementById('p').removeAttribute('role');
+        document.getElementById('current-cookie').textContent = "none";
+        if (!issueContainer.classList.contains('issue')) {
+          issueContainer.classList.add('issue');
+        }
+      }
+    }
+    
+    // Initialize on page load
+    updateDisplay();
     </script>
   </body>
 </html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <title>Focus Management Issues (WCAG 2.1.1, 2.4.3, 2.4.7, 3.2.1)</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .no-outline:focus {
+      outline: none;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .hidden-content {
+      display: none;
+    }
+  </style>
+  <script>
+    function showModal() {
+      document.getElementById('overlay').style.display = 'block';
+      document.getElementById('modal').style.display = 'block';
+      // No focus management - should move focus to modal or first focusable element
+    }
+    
+    function closeModal() {
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('modal').style.display = 'none';
+      // No focus management - should return focus to the button that opened it
+    }
+    
+    function removeFocus() {
+      document.activeElement.blur();
+    }
+  </script>
+</head>
+<body>
+  <main>
+    <h1>Focus Management Issues</h1>
+    <p><strong>WCAG 2.1 Success Criterion 2.4.3 Focus Order (Level A)</strong>: If a Web page can be navigated sequentially and the navigation sequences affect meaning or operation, focusable components receive focus in an order that preserves meaning and operability.</p>
+    <p><strong>WCAG 2.1 Success Criterion 2.4.7 Focus Visible (Level AA)</strong>: Any keyboard operable user interface has a mode of operation where the keyboard focus indicator is visible.</p>
+    <p>This page demonstrates common focus management issues in interactive elements.</p>
+    
+    <section class="section">
+      <h2>Missing Focus Indicator</h2>
+      <div class="issue">
+        <p><strong>WCAG 2.1 Success Criterion 2.4.7 Focus Visible (Level AA)</strong>: Any keyboard operable user interface has a mode of operation where the keyboard focus indicator is visible.</p>
+        <p>The button below has no visible focus outline when tabbed to:</p>
+        <button class="no-outline">Button with no focus outline</button>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2>Focus Removed</h2>
+      <div class="issue">
+        <p><strong>WCAG 2.1 Success Criterion 2.1.1 Keyboard (Level A)</strong>: All functionality of the content is operable through a keyboard interface without requiring specific timings for individual keystrokes.</p>
+        <p><strong>WCAG 2.1 Success Criterion 3.2.1 On Focus (Level A)</strong>: When any user interface component receives focus, it does not initiate a change of context.</p>
+        <p>The button below removes focus from the active element when clicked:</p>
+        <button id="remove-focus">Click to blur focus (will remove focus from active element)</button>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2>Modal Dialog Focus Management</h2>
+      <div class="issue">
+        <p><strong>WCAG 2.1 Success Criterion 2.4.3 Focus Order (Level A)</strong>: If a Web page can be navigated sequentially and the navigation sequences affect meaning or operation, focusable components receive focus in an order that preserves meaning and operability.</p>
+        <p>The modal dialog below doesn't manage focus properly when opened or closed:</p>
+        <button id="open-modal">Open Modal</button>
+        <div id="modal" class="modal">
+          <div class="modal-content">
+            <span class="close" id="close-modal">&times;</span>
+            <h2>Modal Dialog</h2>
+            <p>This modal doesn't trap focus inside it when open, and focus isn't returned to the trigger button when closed.</p>
+            <button>Button in modal</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2>Focus Not Maintained on Content Update</h2>
+      <div class="issue">
+        <p><strong>WCAG 2.1 Success Criterion 3.2.1 On Focus (Level A)</strong>: When any component receives focus, it does not initiate a change of context.</p>
+        <p>The button below updates content without maintaining focus:</p>
+        <button id="show-content">Show Content</button>
+        <div id="dynamic-content" class="hidden-content">
+          <p>This content appears without focus being moved to it, making it difficult for keyboard users to navigate to it.</p>
+        </div>
+      </div>
+    </section>
+    
+    <div id="overlay" class="overlay" onclick="closeModal()"></div>
+    <div id="modal" class="modal">
+      <h2>Modal Dialog</h2>
+      <p>This is a modal dialog with improper focus management.</p>
+      <button onclick="closeModal()">Close</button>
+    </div>
+    
+    <p class="back-link"><a href="index.html">Back to homepage</a></p>
+  </main>
+
+  <script>
+    // Remove focus button
+    document.getElementById('remove-focus').addEventListener('click', function() {
+      document.activeElement.blur();
+    });
+
+    // Modal dialog
+    document.getElementById('open-modal').addEventListener('click', function() {
+      document.getElementById('modal').style.display = 'block';
+      // Focus is not moved to the modal
+    });
+
+    document.getElementById('close-modal').addEventListener('click', function() {
+      document.getElementById('modal').style.display = 'none';
+      // Focus is not returned to the trigger button
+    });
+
+    // Dynamic content update
+    document.getElementById('show-content').addEventListener('click', function() {
+      const content = document.getElementById('dynamic-content');
+      content.style.display = content.style.display === 'block' ? 'none' : 'block';
+      // Focus is not moved to the new content
+    });
+  </script>
+</body>
+</html> 

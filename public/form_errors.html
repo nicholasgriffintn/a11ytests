@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <title>Form Error Identification Issues (WCAG 3.3.1, 3.3.3)</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .form-control {
+      display: block;
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    
+    .form-error {
+      color: #a94442;
+      margin-top: 5px;
+      font-size: 0.9em;
+    }
+    
+    /* Color-only error indication */
+    .error-border {
+      border-color: #a94442;
+    }
+    
+    /* Generic error summary */
+    .error-summary {
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid #a94442;
+      border-radius: 4px;
+      background-color: #f2dede;
+      color: #a94442;
+    }
+    
+    /* Icons for errors */
+    .error-icon {
+      color: #a94442;
+      margin-left: 5px;
+    }
+    
+    .form-section {
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    button {
+      padding: 8px 15px;
+      background-color: #337ab7;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Form Error Identification Issues</h1>
+    <p><strong>WCAG 2.1 Success Criterion 3.3.1 Error Identification (Level A)</strong>: If an input error is automatically detected, the item that is in error is identified and the error is described to the user in text.</p>
+    <p><strong>WCAG 2.1 Success Criterion 3.3.3 Error Suggestion (Level AA)</strong>: If an input error is automatically detected and suggestions for correction are known, then the suggestions are provided to the user, unless it would jeopardize security or purpose.</p>
+    <p>This page demonstrates form validation errors that aren't properly identified or presented.</p>
+
+    <section class="section">
+      <h2>Color-Only Error Indication</h2>
+      <div class="issue">
+        <div class="form-section">
+          <form id="color-only-form">
+            <div class="form-group">
+              <label for="username1">Username:</label>
+              <input type="text" id="username1" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="password1">Password:</label>
+              <input type="password" id="password1" class="form-control">
+            </div>
+            <button type="button" onclick="showColorOnlyErrors()">Submit</button>
+          </form>
+        </div>
+        <p>Issue: Error indication relies solely on color (red border), making it inaccessible to users who can't perceive color differences or who use screen readers.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Generic Error Messages</h2>
+      <div class="issue">
+        <div class="form-section">
+          <div id="generic-error-summary" class="error-summary" style="display: none;">
+            There are errors in the form. Please fix them and try again.
+          </div>
+          <form id="generic-error-form">
+            <div class="form-group">
+              <label for="email2">Email:</label>
+              <input type="email" id="email2" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="phone2">Phone:</label>
+              <input type="tel" id="phone2" class="form-control">
+            </div>
+            <button type="button" onclick="showGenericErrors()">Submit</button>
+          </form>
+        </div>
+        <p>Issue: The error message is generic and doesn't identify which fields have errors or what the errors are.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Errors Not Associated with Fields</h2>
+      <div class="issue">
+        <div class="form-section">
+          <form id="unassociated-error-form">
+            <div class="form-group">
+              <label for="name3">Full Name:</label>
+              <input type="text" id="name3" class="form-control">
+              <span class="form-error" id="name3-error" style="display: none;">Please enter your full name</span>
+            </div>
+            <div class="form-group">
+              <label for="age3">Age:</label>
+              <input type="number" id="age3" class="form-control">
+              <span class="form-error" id="age3-error" style="display: none;">Please enter a valid age (18-120)</span>
+            </div>
+            <button type="button" onclick="showUnassociatedErrors()">Submit</button>
+          </form>
+        </div>
+        <p>Issue: Error messages are not programmatically associated with their respective form fields (missing aria-describedby).</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>No Error Suggestions</h2>
+      <div class="issue">
+        <div class="form-section">
+          <form id="no-suggestion-form">
+            <div class="form-group">
+              <label for="password4">Create Password:</label>
+              <input type="password" id="password4" class="form-control">
+              <span class="form-error" id="password4-error" style="display: none;">Invalid password</span>
+            </div>
+            <div class="form-group">
+              <label for="dob4">Date of Birth:</label>
+              <input type="text" id="dob4" class="form-control" placeholder="DD/MM/YYYY">
+              <span class="form-error" id="dob4-error" style="display: none;">Invalid date</span>
+            </div>
+            <button type="button" onclick="showNoSuggestionErrors()">Submit</button>
+          </form>
+        </div>
+        <p>Issue: Error messages don't provide suggestions for correction (WCAG 3.3.3). For example, not specifying the required password format or date format.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Timing Issues with Error Messages</h2>
+      <div class="issue">
+        <div class="form-section">
+          <form id="timing-issue-form">
+            <div class="form-group">
+              <label for="email5">Email Address:</label>
+              <input type="email" id="email5" class="form-control" onblur="validateEmailField()">
+              <span class="form-error" id="email5-error" style="display: none;">Please enter a valid email address</span>
+            </div>
+            <button type="button">Submit</button>
+          </form>
+        </div>
+        <p>Issue: Error message appears when the field loses focus (onblur), but doesn't provide enough time for users to see what they typed before the error appears.</p>
+      </div>
+    </section>
+
+    <p class="back-link"><a href="index.html">Back to homepage</a></p>
+  </main>
+
+  <script>
+    function showColorOnlyErrors() {
+      const username = document.getElementById('username1').value;
+      const password = document.getElementById('password1').value;
+      
+      if (!username) {
+        document.getElementById('username1').className = 'form-control error-border';
+      } else {
+        document.getElementById('username1').className = 'form-control';
+      }
+      
+      if (!password) {
+        document.getElementById('password1').className = 'form-control error-border';
+      } else {
+        document.getElementById('password1').className = 'form-control';
+      }
+      // Issue: No text feedback, only color changes
+    }
+    
+    function showGenericErrors() {
+      const email = document.getElementById('email2').value;
+      const phone = document.getElementById('phone2').value;
+      
+      if (!email || !phone) {
+        document.getElementById('generic-error-summary').style.display = 'block';
+      } else {
+        document.getElementById('generic-error-summary').style.display = 'none';
+      }
+      // Issue: Does not identify which fields have errors
+    }
+    
+    function showUnassociatedErrors() {
+      const name = document.getElementById('name3').value;
+      const age = document.getElementById('age3').value;
+      
+      if (!name) {
+        document.getElementById('name3-error').style.display = 'block';
+      } else {
+        document.getElementById('name3-error').style.display = 'none';
+      }
+      
+      if (!age || age < 18 || age > 120) {
+        document.getElementById('age3-error').style.display = 'block';
+      } else {
+        document.getElementById('age3-error').style.display = 'none';
+      }
+      // Issue: Error messages not programmatically associated with inputs
+    }
+    
+    function showNoSuggestionErrors() {
+      const password = document.getElementById('password4').value;
+      const dob = document.getElementById('dob4').value;
+      
+      if (!password || password.length < 8) {
+        document.getElementById('password4-error').style.display = 'block';
+      } else {
+        document.getElementById('password4-error').style.display = 'none';
+      }
+      
+      if (!dob || !isValidDate(dob)) {
+        document.getElementById('dob4-error').style.display = 'block';
+      } else {
+        document.getElementById('dob4-error').style.display = 'none';
+      }
+      // Issue: Error messages don't explain how to fix the problem
+    }
+    
+    function validateEmailField() {
+      const email = document.getElementById('email5').value;
+      const emailError = document.getElementById('email5-error');
+      
+      if (!email.includes('@')) {
+        emailError.style.display = 'block';
+      } else {
+        emailError.style.display = 'none';
+      }
+      // Issue: Error appears immediately on blur, may confuse user
+    }
+    
+    function isValidDate(dateString) {
+      // Simple date validation for DD/MM/YYYY format
+      const datePattern = /^\d{2}\/\d{2}\/\d{4}$/;
+      return datePattern.test(dateString);
+    }
+  </script>
+</body>
+</html> 

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <title>Link Purpose Issues (WCAG 2.4.4, 2.4.9)</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <main>
+    <h1>Link Purpose Issues</h1>
+    <p><strong>WCAG 2.1 Success Criterion 2.4.4 Link Purpose (In Context) (Level A)</strong>: The purpose of each link can be determined from the link text alone or from the link text together with its programmatically determined link context.</p>
+    <p><strong>WCAG 2.1 Success Criterion 2.4.9 Link Purpose (Link Only) (Level AAA)</strong>: A mechanism is available to allow the purpose of each link to be identified from link text alone.</p>
+    <p>This page contains links with ambiguous text that doesn't clearly indicate their purpose.</p>
+    
+    <section class="section">
+      <h2>Ambiguous Link Text</h2>
+      
+      <div class="issue">
+        <p>For more information, <a href="#">click here</a>.</p>
+      </div>
+      
+      <div class="issue">
+        <p>To download our report, <a href="#">here</a>.</p>
+      </div>
+      
+      <div class="issue">
+        <p><a href="#">Read more</a> about our company history.</p>
+      </div>
+      
+      <div class="issue">
+        <p>Visit our partners list <a href="#">here</a> or browse other resources <a href="#">here</a>.</p>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2>Links with Only Icons (No Text)</h2>
+      
+      <div class="issue">
+        <p>
+          Follow us: 
+          <a href="#" aria-label=""><span>📱</span></a>
+          <a href="#"><span>📧</span></a>
+          <a href="#"><span>🐦</span></a>
+        </p>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2>Generic URL as Link Text</h2>
+      
+      <div class="issue">
+        <p>Check out our documentation at <a href="#">https://example.com/docs</a></p>
+      </div>
+    </section>
+    
+    <p class="back-link"><a href="index.html">Back to homepage</a></p>
+  </main>
+</body>
+</html> 

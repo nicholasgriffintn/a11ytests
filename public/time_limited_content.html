@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <title>Time-Limited Content (WCAG 2.2.1, 2.2.2)</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .timer-container {
+      background-color: #f8f8f8;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    
+    .timer {
+      font-size: 24px;
+      font-weight: bold;
+      color: #d9534f;
+      margin: 10px 0;
+    }
+    
+    .session-info {
+      padding: 15px;
+      border: 1px solid #ddd;
+      background-color: #f1f1f1;
+    }
+    
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      z-index: 1000;
+      width: 300px;
+      text-align: center;
+    }
+    
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 999;
+    }
+    
+    .auto-advance {
+      padding: 15px;
+      border: 1px solid #ddd;
+      margin-top: 20px;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 20px;
+      background-color: #eee;
+      margin-top: 10px;
+    }
+    
+    .progress {
+      height: 100%;
+      background-color: #4CAF50;
+      width: 0%;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Time-Limited Content</h1>
+    <p><strong>WCAG 2.1 Success Criterion 2.2.1 Timing Adjustable (Level A)</strong>: For each time limit set by the content, at least one of the following is true: turn off, adjust, extend, real-time exception, essential exception, or 20 hour exception.</p>
+    <p><strong>WCAG 2.1 Success Criterion 2.2.2 Pause, Stop, Hide (Level A)</strong>: For moving, blinking, scrolling, or auto-updating information, there is a mechanism for the user to pause, stop, or hide it.</p>
+    <p>This page demonstrates content that is time-limited or time-restricted, which can create accessibility barriers.</p>
+
+    <section class="section">
+      <h2>Session Timeout</h2>
+      <div class="issue">
+        <div class="timer-container">
+          <p>Your session will expire in:</p>
+          <div class="timer" id="session-timer">00:30</div>
+          <div class="session-info">
+            <p>This session timeout doesn't:</p>
+            <ul>
+              <li>Allow users to extend their session easily</li>
+              <li>Warn users with sufficient time before timeout</li>
+              <li>Preserve entered data after re-authentication</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Time-Limited Response</h2>
+      <div class="issue">
+        <div class="popup-overlay" id="overlay"></div>
+        <div class="popup" id="popup">
+          <h3>Confirm your action</h3>
+          <p>Please confirm within 5 seconds or this dialog will close automatically.</p>
+          <div class="timer" id="popup-timer">5</div>
+          <button onclick="confirmAction()">Confirm</button>
+        </div>
+        <button onclick="showPopup()">Show Time-Limited Dialog</button>
+        <p>This popup gives users only 5 seconds to respond, which is insufficient time for many users, especially those with cognitive or motor disabilities.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Auto-Advancing Content</h2>
+      <div class="issue">
+        <div class="auto-advance">
+          <h3>Auto-advancing slide <span id="current-slide">1</span> of 3</h3>
+          <p id="slide-content">This is the content of slide 1. It will automatically advance to the next slide.</p>
+          <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+          </div>
+        </div>
+        <p>This content automatically advances without user control, making it difficult for users who need more time to read.</p>
+      </div>
+    </section>
+
+    <p class="back-link"><a href="index.html">Back to homepage</a></p>
+  </main>
+
+  <script>
+    // Session timeout countdown
+    let sessionSeconds = 30;
+    const sessionInterval = setInterval(function() {
+      sessionSeconds--;
+      if (sessionSeconds < 0) {
+        clearInterval(sessionInterval);
+        alert("Your session has expired.");
+        return;
+      }
+      
+      const minutes = Math.floor(sessionSeconds / 60);
+      const seconds = sessionSeconds % 60;
+      document.getElementById('session-timer').textContent = 
+        (minutes < 10 ? '0' + minutes : minutes) + ':' + 
+        (seconds < 10 ? '0' + seconds : seconds);
+    }, 1000);
+    
+    // Popup timer
+    let popupTimer;
+    let popupSeconds = 5;
+    
+    function showPopup() {
+      document.getElementById('overlay').style.display = 'block';
+      document.getElementById('popup').style.display = 'block';
+      popupSeconds = 5;
+      document.getElementById('popup-timer').textContent = popupSeconds;
+      
+      popupTimer = setInterval(function() {
+        popupSeconds--;
+        document.getElementById('popup-timer').textContent = popupSeconds;
+        
+        if (popupSeconds <= 0) {
+          closePopup();
+        }
+      }, 1000);
+    }
+    
+    function closePopup() {
+      clearInterval(popupTimer);
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('popup').style.display = 'none';
+    }
+    
+    function confirmAction() {
+      clearInterval(popupTimer);
+      closePopup();
+      alert("Action confirmed!");
+    }
+    
+    // Auto-advancing slides
+    let currentSlide = 1;
+    let progress = 0;
+    
+    const slides = [
+      "This is the content of slide 1. It will automatically advance to the next slide.",
+      "This is slide 2 content. Reading quickly? The slide will change soon!",
+      "This is the final slide. It will loop back to slide 1 after completion."
+    ];
+    
+    const slideInterval = setInterval(function() {
+      progress += 1;
+      document.getElementById('progress').style.width = progress + '%';
+      
+      if (progress >= 100) {
+        progress = 0;
+        currentSlide = currentSlide % 3 + 1;
+        document.getElementById('current-slide').textContent = currentSlide;
+        document.getElementById('slide-content').textContent = slides[currentSlide - 1];
+      }
+    }, 100);
+  </script>
+</body>
+</html> 

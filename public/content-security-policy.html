@@ -1,15 +1,41 @@
 <!DOCTYPE html>
 <html lang="en-gb">
   <head>
-    <title>Perfect page - Main heading</title>
+    <title>Content Security Policy Test</title>
+    <link rel="stylesheet" href="index.css">
   </head>
 
   <body>
-    <h1>Main heading</h1>
-    <p role="main">
-    Here is some text in British English. This is needed so that we can verify that
-    the lang attribute in the html element at the top, which specified en-gb, is
-    correct.
-    </p>
+    <main>
+      <h1>Content Security Policy Test</h1>
+      <p>This page is used to test Content Security Policy (CSP) HTTP header detection. The page itself has no accessibility issues, but the HTTP header may be tested by a11y tools.</p>
+      
+      <section class="section">
+        <h2>About Content Security Policy</h2>
+        <p>
+          Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross-Site Scripting (XSS) and data injection attacks.
+        </p>
+        <p>
+          CSP headers can control which resources are allowed to load on a page, including:
+        </p>
+        <ul>
+          <li>Scripts</li>
+          <li>Stylesheets</li>
+          <li>Images</li>
+          <li>Fonts</li>
+          <li>Media (audio/video)</li>
+          <li>Objects</li>
+          <li>Frames</li>
+        </ul>
+      </section>
+      
+      <section class="section">
+        <h2>Example CSP Headers</h2>
+        <pre><code>Content-Security-Policy: default-src 'self'; script-src 'self'</code></pre>
+        <p>This restricts loading of all resources to the same origin as the page.</p>
+      </section>
+      
+      <p class="back-link"><a href="index.html">Back to homepage</a></p>
+    </main>
   </body>
 </html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <title>Complex Interactions (WCAG 2.1.1, 4.1.2)</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-toggle {
+      background-color: #f1f1f1;
+      padding: 10px 15px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+    }
+    
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      border: 1px solid #ccc;
+    }
+    
+    .dropdown-menu li {
+      padding: 10px 15px;
+      margin: 0;
+    }
+    
+    .tabs {
+      display: flex;
+      flex-direction: column;
+      margin: 20px 0;
+    }
+    
+    .tab-list {
+      display: flex;
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      border-bottom: 1px solid #ccc;
+    }
+    
+    .tab-button {
+      padding: 10px 15px;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      border-bottom: none;
+      margin-right: 5px;
+      cursor: pointer;
+    }
+    
+    .tab-panel {
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-top: none;
+    }
+    
+    .carousel {
+      position: relative;
+      margin: 20px 0;
+      overflow: hidden;
+      width: 100%;
+      height: 200px;
+    }
+    
+    .carousel-item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f1f1f1;
+      font-size: 24px;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    
+    .carousel-item.active {
+      opacity: 1;
+    }
+    
+    .carousel-controls {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+    
+    .carousel-control {
+      padding: 5px 10px;
+      background-color: white;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Complex Interactions</h1>
+    <p><strong>WCAG 2.1 Success Criterion 2.1.1 Keyboard (Level A)</strong>: All functionality of the content is operable through a keyboard interface without requiring specific timings for individual keystrokes.</p>
+    <p><strong>WCAG 2.1 Success Criterion 4.1.2 Name, Role, Value (Level A)</strong>: For all user interface components, the name and role can be programmatically determined; states, properties, and values can be programmatically set; and notification of changes to these items is available to user agents, including assistive technologies.</p>
+    <p>This page contains complex UI components with accessibility issues.</p>
+
+    <section class="section">
+      <h2>Inaccessible Dropdown Menu</h2>
+      <div class="issue">
+        <p>This dropdown menu uses clicks only and can't be operated with keyboard:</p>
+        <div class="dropdown">
+          <div class="dropdown-toggle" onclick="toggleDropdown()">Click me (no keyboard support)</div>
+          <ul class="dropdown-menu" id="dropdown-menu">
+            <li>Option 1</li>
+            <li>Option 2</li>
+            <li>Option 3</li>
+          </ul>
+        </div>
+        <p>Issues: not keyboard accessible, missing ARIA, no focus management, no screen reader announcements.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Inaccessible Tabs</h2>
+      <div class="issue">
+        <div class="tabs">
+          <ul class="tab-list">
+            <li><div class="tab-button" onclick="showTab(1)">Tab 1</div></li>
+            <li><div class="tab-button" onclick="showTab(2)">Tab 2</div></li>
+            <li><div class="tab-button" onclick="showTab(3)">Tab 3</div></li>
+          </ul>
+          <div class="tab-panel" id="tab1">Tab 1 content</div>
+          <div class="tab-panel" id="tab2" style="display: none;">Tab 2 content</div>
+          <div class="tab-panel" id="tab3" style="display: none;">Tab 3 content</div>
+        </div>
+        <p>Issues: not keyboard accessible, missing ARIA roles (tablist, tab, tabpanel), no selected state.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Inaccessible Carousel</h2>
+      <div class="issue">
+        <div class="carousel">
+          <div class="carousel-item active" id="slide1">Slide 1</div>
+          <div class="carousel-item" id="slide2">Slide 2</div>
+          <div class="carousel-item" id="slide3">Slide 3</div>
+          <div class="carousel-controls">
+            <button class="carousel-control" onclick="prevSlide()">Previous</button>
+            <button class="carousel-control" onclick="nextSlide()">Next</button>
+          </div>
+        </div>
+        <p>Issues: no announcement of slide changes, no live region, motion not pausable.</p>
+      </div>
+    </section>
+
+    <p class="back-link"><a href="index.html">Back to homepage</a></p>
+  </main>
+
+  <script>
+    function toggleDropdown() {
+      var menu = document.getElementById('dropdown-menu');
+      if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+      } else {
+        menu.style.display = 'block';
+      }
+    }
+    
+    function showTab(tabIndex) {
+      document.getElementById('tab1').style.display = 'none';
+      document.getElementById('tab2').style.display = 'none';
+      document.getElementById('tab3').style.display = 'none';
+      document.getElementById('tab' + tabIndex).style.display = 'block';
+    }
+    
+    var currentSlide = 1;
+    function nextSlide() {
+      document.getElementById('slide' + currentSlide).classList.remove('active');
+      currentSlide = currentSlide === 3 ? 1 : currentSlide + 1;
+      document.getElementById('slide' + currentSlide).classList.add('active');
+    }
+    
+    function prevSlide() {
+      document.getElementById('slide' + currentSlide).classList.remove('active');
+      currentSlide = currentSlide === 1 ? 3 : currentSlide - 1;
+      document.getElementById('slide' + currentSlide).classList.add('active');
+    }
+  </script>
+</body>
+</html> 

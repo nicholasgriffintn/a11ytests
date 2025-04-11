@@ -1,13 +1,32 @@
 <!DOCTYPE html>
 <html lang="en-gb">
   <head>
-    <title>Heading and title attribute failures</title>
+    <title>Heading and Title Attribute Failures (WCAG 1.3.1, 2.4.6, 4.1.2)</title>
+    <link rel="stylesheet" href="index.css">
   </head>
 
   <body>
-    <!-- there is no main heading -->
-    <p role="main">
-      There is content <span title="hello">but this should not have a title attribute</span>
-    </p>
+    <main>
+      <!-- Deliberately missing h1 heading -->
+      <section class="section">
+        <h2>Missing Main Heading</h2>
+        <div class="issue">
+          <p><strong>WCAG 2.1 Success Criterion 1.3.1 Info and Relationships (Level A)</strong>: Information, structure, and relationships conveyed through presentation can be programmatically determined or are available in text.</p>
+          <p><strong>WCAG 2.1 Success Criterion 2.4.6 Headings and Labels (Level AA)</strong>: Headings and labels describe topic or purpose.</p>
+          <p>This page is missing a main (h1) heading. Accessibility tools should flag this issue.</p>
+        </div>
+      </section>
+      
+      <section class="section">
+        <h2>Improper Title Attribute</h2>
+        <div class="issue">
+          <p><strong>WCAG 2.1 Success Criterion 4.1.2 Name, Role, Value (Level A)</strong>: For all user interface components, the name and role can be programmatically determined; states, properties, and values that can be set by the user can be programmatically set; and notification of changes to these items is available to user agents, including assistive technologies.</p>
+          <p>There is content <span title="hello">but this span should not have a title attribute</span> without providing additional context.</p>
+          <p>Title attributes are problematic for accessibility as they are not consistently announced by screen readers and are not visible to all users.</p>
+        </div>
+      </section>
+      
+      <p class="back-link"><a href="index.html">Back to homepage</a></p>
+    </main>
   </body>
 </html>

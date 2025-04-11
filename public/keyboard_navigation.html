@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <title>Keyboard Navigation Issues (WCAG 2.1.1, 2.1.2)</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .keyboard-trap {
+      border: 1px solid red;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    .non-focusable {
+      border: 1px solid blue;
+      padding: 10px;
+      margin: 10px 0;
+    }
+  </style>
+  <script>
+    function trapKeyboard() {
+      // This creates a keyboard trap
+      document.getElementById('trap').addEventListener('keydown', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        alert("Keyboard trap! This prevents you from tabbing out.");
+      });
+    }
+    
+    window.onload = function() {
+      trapKeyboard();
+    }
+  </script>
+</head>
+<body>
+  <main>
+    <h1>Keyboard Navigation Issues</h1>
+    <p><strong>WCAG 2.1 Success Criterion 2.1.1 Keyboard (Level A)</strong>: All functionality of the content is operable through a keyboard interface without requiring specific timings for individual keystrokes.</p>
+    <p><strong>WCAG 2.1 Success Criterion 2.1.2 No Keyboard Trap (Level A)</strong>: If keyboard focus can be moved to a component using a keyboard interface, then focus can be moved away from that component using only a keyboard interface.</p>
+    <p>This page contains issues with keyboard navigation including a keyboard trap and custom controls missing keyboard focus.</p>
+    
+    <h2>Keyboard Trap</h2>
+    <div class="keyboard-trap">
+      <input type="text" id="trap" placeholder="Type here and try to tab out">
+      <p>Once you focus this input, you cannot tab away from it.</p>
+    </div>
+    
+    <h2>Missing Keyboard Focus</h2>
+    <div class="non-focusable">
+      <div onclick="alert('Clicked!')" role="button">
+        This is a custom button with no keyboard focus
+      </div>
+    </div>
+    
+    <p class="back-link"><a href="index.html">Back to homepage</a></p>
+  </main>
+</body>
+</html> 

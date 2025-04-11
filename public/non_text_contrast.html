@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <title>Non-text Contrast Issues (WCAG 1.4.11)</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    /* Low contrast UI components */
+    .low-contrast-button {
+      background-color: #767676; /* Low contrast against white */
+      color: #999999;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+    }
+    
+    .low-contrast-input {
+      border: 1px solid #cccccc; /* Low contrast border */
+      padding: 8px;
+      background-color: #f8f8f8;
+    }
+    
+    .low-contrast-checkbox {
+      width: 20px;
+      height: 20px;
+      border: 1px solid #d0d0d0; /* Low contrast border */
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+      background-color: #f4f4f4;
+    }
+    
+    .low-contrast-focus:focus {
+      outline: 1px solid #e5e5e5; /* Very low contrast focus indicator */
+    }
+    
+    /* SVG with low contrast elements */
+    .low-contrast-graphic {
+      display: block;
+      margin: 15px auto;
+    }
+    
+    /* Toggle switch with low contrast */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #dddddd; /* Low contrast background */
+      transition: .4s;
+      border-radius: 34px;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: #f0f0f0; /* Low contrast with slider background */
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    /* Chart with low contrast colors */
+    .chart {
+      display: flex;
+      height: 150px;
+      align-items: flex-end;
+      margin: 15px 0;
+    }
+    
+    .bar {
+      flex-grow: 1;
+      margin: 0 2px;
+    }
+    
+    .bar1 { background-color: #e5e5e5; height: 60%; }
+    .bar2 { background-color: #d0d0d0; height: 80%; }
+    .bar3 { background-color: #c0c0c0; height: 40%; }
+    .bar4 { background-color: #b8b8b8; height: 90%; }
+    .bar5 { background-color: #a9a9a9; height: 70%; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Non-text Contrast Issues</h1>
+    <p><strong>WCAG 2.1 Success Criterion 1.4.11 Non-text Contrast (Level AA)</strong>: Visual presentation of UI components and graphical objects have a contrast ratio of at least 3:1 against adjacent colors.</p>
+    <p>This page demonstrates insufficient contrast for UI components and graphical objects.</p>
+
+    <section class="section">
+      <h2>Interactive UI Elements with Low Contrast</h2>
+      <div class="issue">
+        <h3>Buttons and Controls</h3>
+        <button class="low-contrast-button">Low Contrast Button</button>
+        <p>The button above has insufficient contrast between its text and background color.</p>
+        
+        <h3>Form Elements</h3>
+        <input type="text" class="low-contrast-input" placeholder="Low contrast border">
+        <div style="margin-top: 15px;">
+          <span class="low-contrast-checkbox"></span>
+          <label>Checkbox with low contrast border</label>
+        </div>
+        <p>These form components have borders with insufficient contrast against the background, making them difficult to perceive.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Focus Indicators with Low Contrast</h2>
+      <div class="issue">
+        <input type="text" class="low-contrast-focus" placeholder="Focus this element">
+        <p>When focused, this input has a very low-contrast focus indicator, making it difficult to see which element is currently focused.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Graphical Objects with Low Contrast</h2>
+      <div class="issue">
+        <svg width="200" height="100" class="low-contrast-graphic">
+          <rect width="180" height="80" x="10" y="10" fill="#f9f9f9" stroke="#dddddd" stroke-width="2" />
+          <circle cx="60" cy="50" r="30" fill="#e0e0e0" />
+          <rect x="100" y="30" width="70" height="40" fill="#d5d5d5" />
+        </svg>
+        <p>This SVG contains graphical objects with insufficient contrast between adjacent colors and against the background.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Toggle Switch with Low Contrast</h2>
+      <div class="issue">
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider"></span>
+        </label>
+        <p>This toggle switch has insufficient contrast between its track and thumb elements, making it difficult to perceive its state.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Data Visualization with Low Contrast</h2>
+      <div class="issue">
+        <div class="chart">
+          <div class="bar bar1"></div>
+          <div class="bar bar2"></div>
+          <div class="bar bar3"></div>
+          <div class="bar bar4"></div>
+          <div class="bar bar5"></div>
+        </div>
+        <p>This chart uses adjacent colors with insufficient contrast, making it difficult to distinguish between different data points.</p>
+      </div>
+    </section>
+
+    <p class="back-link"><a href="index.html">Back to homepage</a></p>
+  </main>
+</body>
+</html> 

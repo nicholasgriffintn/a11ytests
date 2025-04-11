@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <title>Missing Skip Navigation (WCAG 2.4.1)</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+    }
+    nav {
+      background-color: #333;
+      padding: 10px 0;
+    }
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+    nav li {
+      margin: 0 15px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 5px 10px;
+    }
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    footer {
+      background-color: #f5f5f5;
+      text-align: center;
+      padding: 15px;
+      border-top: 1px solid #ddd;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Missing Skip Navigation</h1>
+  </header>
+  
+  <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Products</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#">Support</a></li>
+      <li><a href="#">Blog</a></li>
+    </ul>
+  </nav>
+  
+  <div class="content">
+    <main>
+      <h2>No Skip Navigation Link</h2>
+      <p><strong>WCAG 2.1 Success Criterion 2.4.1 Bypass Blocks (Level A)</strong>: A mechanism is available to bypass blocks of content that are repeated on multiple pages.</p>
+      <p>This page has a large navigation menu but no "skip to main content" link for keyboard users.</p>
+      
+      <section class="section">
+        <h3>Why Skip Links are Important</h3>
+        <div class="issue">
+          <p>Without a skip link, keyboard users must tab through all navigation links before reaching the main content. This is particularly problematic for:</p>
+          <ul>
+            <li>Users with motor disabilities who navigate by keyboard</li>
+            <li>Screen reader users who want to bypass repetitive navigation</li>
+            <li>People using switch control devices</li>
+          </ul>
+        </div>
+      </section>
+      
+      <section class="section">
+        <h3>Key Issues On This Page</h3>
+        <ul>
+          <li>No visible skip link at the beginning of the page</li>
+          <li>Lengthy navigation that cannot be bypassed</li>
+          <li>No landmarks to help screen reader users navigate efficiently</li>
+        </ul>
+        
+        <p>Accessibility tools should flag the absence of a skip navigation link on this page.</p>
+      </section>
+      
+      <p class="back-link"><a href="index.html">Back to homepage</a></p>
+    </main>
+  </div>
+  
+  <footer>
+    <p>&copy; 2023 Skip Navigation Test</p>
+  </footer>
+</body>
+</html> 
