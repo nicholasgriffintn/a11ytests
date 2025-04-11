@@ -1,31 +1,44 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Hello, World!</title>
-	</head>
-	<body>
-		<h1 id="heading"></h1>
-		<button id="button" type="button">Fetch a random UUID</button>
-		<output id="random" for="button"></output>
-		<script>
-			fetch('/message')
-				.then((resp) => resp.text())
-				.then((text) => {
-					const h1 = document.getElementById('heading');
-					h1.textContent = text;
-				});
-
-			const button = document.getElementById("button");
-			button.addEventListener("click", () => {
-				fetch('/random')
-					.then((resp) => resp.text())
-					.then((text) => {
-						const random = document.getElementById('random');
-						random.textContent = text;
-					});
-			});
-		</script>
-	</body>
+<!DOCTYPE html>
+<html lang="en-gb">
+  <head>
+    <title>A11yTests Homepage</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        line-height: 1.5;
+      }
+      h1 {
+        margin-bottom: 1rem;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>A11y Tests Homepage</h1>
+      <p>Welcome to the accessibility testing pages. Use the links below to navigate to various test cases:</p>
+      
+      <ul>
+        <li><a href="perfect.html">Perfect Page</a> - A page with no accessibility issues</li>
+        <li><a href="perfect_when_666_wide.html">Perfect at 666px Width</a> - A page that passes accessibility tests at 666px width</li>
+        <li><a href="perfect_after_login.html">Perfect After Login</a> - A page that passes accessibility tests after login</li>
+        <li><a href="one_warning.html">One Warning</a> - A page with a single accessibility warning</li>
+        <li><a href="missing_main_heading.html">Missing Main Heading</a> - A page missing a main heading</li>
+        <li><a href="heading_and_title_attribute_failures.html">Heading and Title Attribute Failures</a></li>
+        <li><a href="good_with_cookie.html">Good With Cookie</a> - A page that passes with certain cookie settings</li>
+        <li><a href="subheading_first.html">Subheading First</a> - A page with subheading structure issues</li>
+        <li><a href="two_headings_failures_and_one_warning.html">Two Heading Failures and One Warning</a></li>
+        <li><a href="errors_in_orb_modules.html">Errors in Orb Modules</a> - A page demonstrating errors in module components</li>
+        <li><a href="x-frame-options.html">X-Frame-Options</a> - A page testing X-Frame-Options header</li>
+      </ul>
+    </main>
+  </body>
 </html>

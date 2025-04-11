@@ -1,24 +1,29 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `npm run dev` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `npm run deploy` to publish your worker
- *
- * Bind resources to your worker in `wrangler.jsonc`. After adding bindings, a type definition for the
- * `Env` object can be regenerated with `npm run cf-typegen`.
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
+// Create a Map to track visits to the goodThenBad route
+const visitCounts = new Map<string, number>();
 
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
 		const url = new URL(request.url);
+		console.log(`${url.pathname} ${request.headers.get('x-frame-options')}`)
 		switch (url.pathname) {
-			case '/message':
-				return new Response('Hello, World!');
-			case '/random':
-				return new Response(crypto.randomUUID());
+			case '/status':
+				return new Response('OK');
+			case '/goodThenBad': {
+				const visitorId = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for') || 'unknown';
+				
+				const visitCount = visitCounts.get(visitorId) || 0;
+				
+				visitCounts.set(visitorId, visitCount + 1);
+				
+				const filePath = visitCount === 0 
+					? 'perfect.html'
+					: 'missing_main_heading.html';
+				
+				const assetUrl = new URL(filePath, url.origin);
+				const assetRequest = new Request(assetUrl.toString(), request);
+				
+				return env.ASSETS.fetch(assetRequest);
+			}
 			default:
 				return new Response('Not Found', { status: 404 });
 		}
