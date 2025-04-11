@@ -1,2 +1,4 @@
 /x-frame-options
   X-Frame-Options: SAMEORIGIN
+/content-security-policy
+  Content-Security-Policy: frame-ancestors 'self';
