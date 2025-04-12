@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-gb">
   <head>
-    <title>Perfect page, but only when it's exactly 666px wide (WCAG 1.3.1, 2.4.2)</title>
-    <link rel="stylesheet" href="index.css">
+    <title>Perfect page, but only when it's exactly 666px wide</title>
     <style>
       h1 { display: none }
       @media screen and (min-width: 666px) and (max-width:666px) {
@@ -12,27 +11,11 @@
   </head>
 
   <body>
-    <main role="main">
-      <h1>This main heading is only visible at exactly 666px width</h1>
-      
-      <section class="section">
-        <div class="issue">
-          <p>
-            <strong>WCAG 2.1 Success Criterion 1.3.1 Info and Relationships (Level A)</strong>: Information, structure, and relationships conveyed through presentation can be programmatically determined or are available in text.
-          </p>
-          <p>
-            <strong>WCAG 2.1 Success Criterion 2.4.2 Page Titled (Level A)</strong>: Web pages have titles that describe topic or purpose.
-          </p>
-          <p>This page only passes accessibility tests when the viewport is exactly 666px wide because the main heading is hidden at all other widths.</p>
-          <p>
-            Here is some text in British English. This is needed so that we can verify that
-            the lang attribute in the html element at the top, which specified en-gb, is
-            correct.
-          </p>
-        </div>
-      </section>
-      
-      <p class="back-link"><a href="index.html">Back to homepage</a></p>
-    </main>
+    <h1>This main heading is only visible at exactly 666px width</h1>
+    <p role="main">
+      Here is some text in British English. This is needed so that we can verify that
+      the lang attribute in the html element at the top, which specified en-gb, is
+      correct.
+    </p>
   </body>
 </html>
